@@ -8,7 +8,8 @@ export default new Vuex.Store({
     key: "d1a4edd7c25b0afc72e1f8debe620e61",
     popularMovies: "",
     hero: "",
-    searchTerm: ""
+    searchTerm: "",
+    categoryFetchedTitle: 'popular'
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -19,12 +20,15 @@ export default new Vuex.Store({
     },
     UPDATE_SEARCH_TERM(state, payload) {
       state.searchTerm = payload;
+    },
+    CHANGE_FETCHED_CATEGORY(state, payload) {
+      state.categoryFetchedTitle = payload;
     }
   },
   actions: {
-    getPopularMovies({ commit }) {
+    fetchMovies({ commit }) {
       fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${this.state.key}&language=en`
+        `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
         .then(res => res.json())
         .then(json => {
@@ -42,7 +46,7 @@ export default new Vuex.Store({
     },
     getHeroDetails({ commit }) {
       fetch(
-        `https://api.themoviedb.org/3/movie/popular?api_key=${this.state.key}&language=en`
+        `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
         .then(res => res.json())
         .then(json => {
@@ -54,7 +58,7 @@ export default new Vuex.Store({
           commit("SET_HERO", heroObject);
         })
         .catch(error => console.log(error));
-    }
+    },
   },
   getters: {
     popularMovies(state) {

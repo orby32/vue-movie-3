@@ -5,11 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
+    "vue-image-compressor": "^1.0.3",
+    "vue-loading-overlay": "^3.3.2",
     "vue-router": "^3.1.6",
     "vuex": "^3.1.3"
   },

@@ -2,24 +2,26 @@
   <div>
     <HeroImage :movie="specificMovieHero" v-if="specificMovieHero"></HeroImage>
     <div class="movie-details">
-      <p>
-        Genres:
-        <span v-for="genere in specificMovieDetails.genres" :key="genere.id">{{
+      <ul>
+        Genres: 
+        <span v-for="genere in specificMovieDetails.genres" :key="genere.id" class="genre-item">{{
           genere.name
         }}</span>
+      </ul>
+      <p>
+        Budget: {{ specificMovieDetails.budget | money}}
       </p>
-      <p v-if="specificMovieDetails.budget > 0">
-        Budget: {{ specificMovieDetails.budget }}
-      </p>
-      <p>{{ specificMovieDetails.revenue }}</p>
-      <p>Running time: {{ specificMovieDetails.runtime }}</p>
+      <p>Revenue: {{ specificMovieDetails.revenue | money}}</p>
+      <p>Running time: {{ specificMovieDetails.runtime | hour}}</p>
     </div>
+
     <ul class="actors-list">
       <Card v-for="person in specificMovieCast" :key="person.cast_id">
         <img
           :src="`http://image.tmdb.org/t/p/w1280/${person.profile_path}`"
           alt=""
           class="actor-card__img"
+          loading="lazy"
         />
         <div class="actor-card__meta">
           <p>{{ person.name }}</p>
@@ -33,6 +35,7 @@
 <script>
 import HeroImage from "@/components/HeroImage";
 import Card from "@/components/Card";
+
 
 export default {
   name: "Movie",
@@ -51,6 +54,7 @@ export default {
       ],
     };
   },
+
   created() {
     // Fetch an array of endpoints and then continue normally
     Promise.all(this.urls.map((url) => fetch(url).then((resp) => resp.json())))
@@ -71,9 +75,11 @@ export default {
         };
         this.specificMovieDetails = detailsObject;
 
-        // Prepare the data for list of cast
-        this.specificMovieCast = json[0].cast;
-        console.log(json[1]);
+        // Prepare the data for list of cast (and filter out those without image)
+        // For performence issues reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items.
+        let size = 10;
+        const smallList = json[0].cast.slice(0, size);
+        this.specificMovieCast = smallList.filter(item => item.profile_path != null);
       })
       .catch((error) => console.log(error));
   },
@@ -109,5 +115,9 @@ export default {
   padding: 50px 20px;
   background-color: #4a4a4a;
   color: #fff;
+
+.genre-item + .genre-item:before {
+  content: ", ";
+}
 }
 </style>

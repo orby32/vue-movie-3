@@ -1,6 +1,6 @@
 <template>
   <div class="main-view-container">
-    <h1>Trending Movies</h1>
+    <h1>{{categoryName | formattedText}}</h1>
     <ul class="movies-list">
       <li
         class="movies-list__item"
@@ -13,6 +13,7 @@
             :src="`http://image.tmdb.org/t/p/w1280/${movie.poster_path}`"
             :alt="movie.title"
           />
+
         </router-link>
       </li>
     </ul>
@@ -20,7 +21,14 @@
 </template>
 
 <script>
+
 export default {
+ 
+  computed: {
+    categoryName() {
+      return this.$store.state.categoryFetchedTitle
+    }
+  },
   props: {
     movies: {
       type: Array,
@@ -39,6 +47,7 @@ export default {
   h1 {
     font-size: 34px;
     margin: 15px 0;
+    text-transform: capitalize;
   }
 }
 .movies-list {

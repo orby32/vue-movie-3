@@ -2,6 +2,7 @@
     <div>
         <HeroImage :movie="heroDetails" v-if="heroDetails"></HeroImage>
         <SearchField></SearchField>
+        <Tabs></Tabs>
         <MainView :movies="searchFilter" v-if="popularMovies"></MainView>
     </div>
 </template>
@@ -9,6 +10,7 @@
 <script>
 import HeroImage from '../components/HeroImage.vue';
 import SearchField from '../components/SearchField.vue';
+import Tabs from '@/components/Tabs/Tabs';
 import MainView from '../components/MainView.vue';
 
 export default {
@@ -16,10 +18,11 @@ export default {
     components: {
         HeroImage,
         SearchField,
+        Tabs,
         MainView
     },
     created() {
-    this.$store.dispatch('getPopularMovies');
+    this.$store.dispatch('fetchMovies');
     this.$store.dispatch('getHeroDetails');
   },
     computed: { 

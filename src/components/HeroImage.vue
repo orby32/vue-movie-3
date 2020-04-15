@@ -25,8 +25,8 @@ export default {
 
 <style lang="scss">
 .hero-image {
-  background-size: 100%, cover;
-  background-position: 50%, 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
   width: 100%;
   height: 70vh;
   position: relative;
