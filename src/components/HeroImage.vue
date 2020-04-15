@@ -27,9 +27,13 @@ export default {
 .hero-image {
     background-repeat: no-repeat;
     background-size: cover;
-  width: 100%;
-  height: 70vh;
-  position: relative;
+    width: 100%;
+    height: 70vh;
+    position: relative;
+    
+    @media (max-width: 769px) {
+      background-position: center;
+    }
 
   &__text {
     color: #fff;
