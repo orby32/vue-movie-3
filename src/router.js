@@ -1,14 +1,14 @@
-import Homepage from '../src/pages/Homepage.vue';
-import Movie from '../src/pages/Movie.vue';
+// import Homepage from '../src/pages/Homepage.vue';
+// import Movie from '../src/pages/Movie.vue';
 
 export const routes = [
     {
         path: '/', 
-        component: Homepage
+        component: () => import('../src/pages/Homepage.vue')
     },
     {
         path: '/movies/:id', 
         name: 'movie',
-        component: Movie
+        component: () => import('../src/pages/Movie.vue')
     }
 ]

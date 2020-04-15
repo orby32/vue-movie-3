@@ -34,7 +34,7 @@
 
 <script>
 import HeroImage from "@/components/HeroImage";
-import Card from "@/components/Card";
+const Card = () => import ('@/components/Card.vue'); // lazy loading component
 
 
 export default {
