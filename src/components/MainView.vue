@@ -1,20 +1,28 @@
 <template>
   <div class="main-view-container">
-    <h1>{{categoryName | formattedText}}</h1>
+    <div class="page-header">
+    <h1>{{!isMainView ? 'Your favorites' : categoryName | formattedText}}</h1>
+    
+      <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
+      <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
+    </div>
     <ul class="movies-list">
       <li
         class="movies-list__item"
         v-for="movie in movies"
         :key="movie.id"
         :title="movie.title"
+        
       >
         <router-link :to="{ name: 'movie', params: { id: movie.id } }">
           <img
             :src="`http://image.tmdb.org/t/p/w1280/${movie.poster_path}`"
             :alt="movie.title"
           />
-
         </router-link>
+        <button class="add-to-favs" @click="toggle(movie)" v-if="isMainView">
+        {{favorites.includes(movie) ? 'Added!' : 'Add to favorites'}}
+        </button>
       </li>
     </ul>
   </div>
@@ -23,11 +31,21 @@
 <script>
 
 export default {
- 
   computed: {
     categoryName() {
       return this.$store.state.categoryFetchedTitle
+    },
+    favorites() {
+      return this.$store.getters.getUserFavorites;
+    },
+    isMainView() {
+      return this.$route.path == '/';
     }
+  },
+  methods: {
+    toggle(movie) {
+      this.$store.dispatch('addToFavs', movie);
+    } 
   },
   props: {
     movies: {
@@ -42,12 +60,25 @@ export default {
 .main-view-container {
   max-width: 1530px;
   overflow: hidden;
+  padding: 0 20px;
   margin: 0 auto;
 
-  h1 {
-    font-size: 34px;
-    margin: 15px 0;
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      font-size: 34px;
+      margin: 15px 0;
+      text-transform: capitalize;
+  }
+  .header-link {
+    text-decoration: underline;
     text-transform: capitalize;
+    cursor: pointer;
+    color: #000;
+  }
   }
 }
 .movies-list {
@@ -69,5 +100,17 @@ export default {
       }
     }
   }
+}
+
+.add-to-favs {
+    border-radius: 2px;
+    border: 1px solid #000;
+    background-color: #dcdcdc;
+    cursor: pointer;
+    transition: opacity .3s;
+
+    &:hover {
+      opacity: .8;
+    }
 }
 </style>

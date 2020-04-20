@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import axios from 'axios';
 
 Vue.use(Vuex);
 
@@ -9,7 +10,8 @@ export default new Vuex.Store({
     popularMovies: "",
     hero: "",
     searchTerm: "",
-    categoryFetchedTitle: 'popular'
+    categoryFetchedTitle: 'popular',
+    favorites: []
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -23,20 +25,26 @@ export default new Vuex.Store({
     },
     CHANGE_FETCHED_CATEGORY(state, payload) {
       state.categoryFetchedTitle = payload;
+    },
+    ADD_AS_FAVORITE(state, movie) {
+      if(state.favorites.includes(movie)) {
+        state.favorites.splice(movie, 1)
+      } else {
+        state.favorites.push(movie);
+      }
     }
   },
   actions: {
     fetchMovies({ commit }) {
-      fetch(
+      axios.get(
         `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
-        .then(res => res.json())
-        .then(json => {
-          commit("SET_POPULAR", json.results);
-        })
-        .then(json => {
+        .then(res => {
+          // commit mutation
+          commit("SET_POPULAR", res.data.results);
+
           // destructuring the api object to what is needed for heroImage
-          const { title, overview, backdrop_path } = json.results[0];
+          const { title, overview, backdrop_path } = res.data.results[0];
           // create a new object
           const heroObject = { title, overview, backdrop_path };
           // commit mutation with new object
@@ -45,13 +53,12 @@ export default new Vuex.Store({
         .catch(error => console.log(error));
     },
     getHeroDetails({ commit }) {
-      fetch(
+      axios.get(
         `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
-        .then(res => res.json())
-        .then(json => {
+        .then(res => {
           // destructuring the api object to what is needed for heroImage
-          const { title, overview, backdrop_path } = json.results[0];
+          const { title, overview, backdrop_path } = res.data.results[0];
           // create a new object
           const heroObject = { title, overview, backdrop_path };
           // commit mutation with new object
@@ -59,6 +66,9 @@ export default new Vuex.Store({
         })
         .catch(error => console.log(error));
     },
+    addToFavs({commit}, movie) { 
+      commit("ADD_AS_FAVORITE", movie)
+    }
   },
   getters: {
     popularMovies(state) {
@@ -66,6 +76,9 @@ export default new Vuex.Store({
     },
     getHeroDetails(state) {
       return state.hero;
+    },
+    getUserFavorites(state) {
+      return state.favorites;
     }
   }
 });

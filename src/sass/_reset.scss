@@ -88,3 +88,10 @@ video {
   font-family: "Karla", sans-serif;
   vertical-align: baseline;
 }
+
+html, body {
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+}

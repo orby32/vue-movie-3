@@ -37,6 +37,16 @@ export default {};
       color: #fff;
       font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     }
+    .header-link {
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+      transition: opacity .3s;
+
+      &:hover {
+        opacity: .8;
+      }
+    }
   }
 }
 </style>

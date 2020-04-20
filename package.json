@@ -9,6 +9,8 @@
     "build-report": "vue-cli-service build --report"
   },
   "dependencies": {
+    "axios": "^0.19.2",
+    "axios-progress-bar": "^1.2.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-image-compressor": "^1.0.3",
@@ -26,7 +28,8 @@
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11",
-    "webpack": "^4.42.1"
+    "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.7.0"
   },
   "eslintConfig": {
     "root": true,

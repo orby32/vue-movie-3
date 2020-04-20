@@ -8,6 +8,13 @@
           genere.name
         }}</span>
       </ul>
+      
+      <div class="vote-average">
+      <span class="vote-average__label">Vote average:</span>
+      <meter class="vote-average__meter" id="popularity" :value="specificMovieDetails.vote_average" min="0" max="10"></meter>
+      <span class="vote-average__text">{{specificMovieDetails.vote_average}}</span>
+
+      </div>
       <p>
         Budget: {{ specificMovieDetails.budget | money}}
       </p>
@@ -22,6 +29,8 @@
           alt=""
           class="actor-card__img"
           loading="lazy"
+          width="250"
+          height="375"
         />
         <div class="actor-card__meta">
           <p>{{ person.name }}</p>
@@ -33,9 +42,10 @@
 </template>
 
 <script>
-import HeroImage from "@/components/HeroImage";
-const Card = () => import ('@/components/Card.vue'); // lazy loading component
-
+ // lazy loading components
+import HeroImage from "@/components/HeroImage.vue";
+const Card = () => import ('@/components/Card.vue');
+import axios from 'axios';
 
 export default {
   name: "Movie",
@@ -56,29 +66,30 @@ export default {
   },
 
   created() {
-    // Fetch an array of endpoints and then continue normally
-    Promise.all(this.urls.map((url) => fetch(url).then((resp) => resp.json())))
-      .then((json) => {
+    // Fetc h an array of endpoints and then continue normally
+    Promise.all(this.urls.map((url) => axios.get(url)))
+      .then((res) => {
         // Prepare the data for heroObject(HeroImage)
-        const { title, overview, backdrop_path } = json[1];
+        const { title, overview, backdrop_path } = res[1].data;
         const heroObject = { title, overview, backdrop_path };
         this.specificMovieHero = heroObject;
 
         // Prepare the data for movie details
-        const { genres, release_date, runtime, budget, revenue } = json[1];
-        const detailsObject = {
+          const { genres, release_date, runtime, budget, revenue, vote_average } = res[1].data;
+          const detailsObject = {
           genres,
           release_date,
           runtime,
           budget,
           revenue,
+          vote_average
         };
         this.specificMovieDetails = detailsObject;
 
-        // Prepare the data for list of cast (and filter out those without image)
-        // For performence issues reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items.
+        /* Prepare the data for list of cast (and filter out those without image)
+        For performence issues reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items. */
         let size = 10;
-        const smallList = json[0].cast.slice(0, size);
+        const smallList = res[0].data.cast.slice(0, size);
         this.specificMovieCast = smallList.filter(item => item.profile_path != null);
       })
       .catch((error) => console.log(error));
@@ -108,16 +119,36 @@ export default {
       }
     }
   }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, 200px);
+  }
 }
 .movie-details {
-  display: flex;
-  justify-content: space-around;
-  padding: 50px 20px;
-  background-color: #4a4a4a;
-  color: #fff;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 20px;
+    align-items: center;
+    padding: 30px;
+    background-color: #4a4a4a;
+    color: #fff;
+
+    @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    }
 
 .genre-item + .genre-item:before {
   content: ", ";
+}
+
+.vote-average {
+  display: flex;
+  align-items: center;
+
+  &__meter {
+    margin: 0 15px;
+  }
 }
 }
 </style>
