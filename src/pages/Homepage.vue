@@ -21,6 +21,11 @@ export default {
         Tabs,
         MainView
     },
+    data() {
+      return {
+        page: 1
+      }
+    },
     created() {
     this.$store.dispatch('fetchMovies');
     this.$store.dispatch('getHeroDetails');
@@ -37,6 +42,6 @@ export default {
           return movie.title.toLowerCase().match(this.$store.state.searchTerm)
       }) 
       }
-  },
+  }
 }
 </script>

@@ -21,7 +21,7 @@
           />
         </router-link>
         <button class="add-to-favs" @click="toggle(movie)" v-if="isMainView">
-        {{favorites.includes(movie) ? 'Added!' : 'Add to favorites'}}
+        {{favorites.includes(movie) ? 'Added to favorites!' : 'Add to favorites'}}
         </button>
       </li>
     </ul>
@@ -31,6 +31,12 @@
 <script>
 
 export default {
+    props: {
+    movies: {
+      type: Array,
+      required: true,
+    },
+  },
   computed: {
     categoryName() {
       return this.$store.state.categoryFetchedTitle
@@ -46,13 +52,7 @@ export default {
     toggle(movie) {
       this.$store.dispatch('addToFavs', movie);
     } 
-  },
-  props: {
-    movies: {
-      type: Array,
-      required: true,
-    },
-  },
+  }
 };
 </script>
 
