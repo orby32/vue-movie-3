@@ -1,19 +1,20 @@
 <template>
-    <div>
-        <HeroImage :movie="heroDetails" v-if="heroDetails"></HeroImage>
-        <SearchField></SearchField>
-        <Tabs></Tabs>
-        <MainView :movies="searchFilter" v-if="popularMovies"></MainView>
-    </div>
+  <div>
+    <HeroImage :movie="heroDetails" v-if="heroDetails"></HeroImage>
+    <SearchField></SearchField>
+    <Tabs></Tabs>
+    <MainView :movies="searchFilter" v-if="popularMovies"></MainView>
+  </div>
 </template>
 
 <script>
-import HeroImage from '../components/HeroImage.vue';
-import SearchField from '../components/SearchField.vue';
-import Tabs from '@/components/Tabs/Tabs';
-import MainView from '../components/MainView.vue';
+import HeroImage from "../components/HeroImage.vue";
+import SearchField from "../components/SearchField.vue";
+import Tabs from "@/components/Tabs/Tabs";
+import MainView from "../components/MainView.vue";
 
 export default {
+<<<<<<< HEAD
     name: 'homepage',
     components: {
         HeroImage,
@@ -24,19 +25,36 @@ export default {
     created() {
       // fetch movies and hero details
     this.$store.dispatch('fetchMovies');
+=======
+  name: "homepage",
+  components: {
+    HeroImage,
+    SearchField,
+    Tabs,
+    MainView
   },
-    computed: { 
+  data() {
+    return {
+      page: 1
+    };
+  },
+  created() {
+    this.$store.dispatch("fetchMovies");
+    // this.$store.dispatch('getHeroDetails');
+>>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
+  },
+  computed: {
     popularMovies() {
       return this.$store.getters.popularMovies;
     },
     heroDetails() {
       return this.$store.getters.getHeroDetails;
     },
-    searchFilter(){
+    searchFilter() {
       return this.popularMovies.filter(movie => {
-          return movie.title.toLowerCase().match(this.$store.state.searchTerm)
-      }) 
-      }
+        return movie.title.toLowerCase().match(this.$store.state.searchTerm);
+      });
+    }
   }
-}
+};
 </script>

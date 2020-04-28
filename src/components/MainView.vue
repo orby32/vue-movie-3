@@ -1,10 +1,27 @@
 <template>
   <div class="main-view-container">
+<<<<<<< HEAD
     <div class="page-header"> 
     <h1>{{!isMainView ? 'Your favorites' : categoryName | formattedText}}</h1>
     
       <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
       <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
+=======
+    <div class="page-header">
+      <h1>
+        {{ !isMainView ? "Your favorites" : categoryName | formattedText }}
+      </h1>
+
+      <router-link
+        :to="{ name: 'wishlist' }"
+        class="header-link"
+        v-if="isMainView"
+        >Your favorites</router-link
+      >
+      <a @click="$router.go(-1)" class="header-link" v-else
+        >Back to all movies</a
+      >
+>>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
     </div>
     <ul class="movies-list">
       <li
@@ -12,16 +29,20 @@
         v-for="movie in movies"
         :key="movie.id"
         :title="movie.title"
-        
       >
         <router-link :to="{ name: 'movie', params: { id: movie.id } }">
           <img
             :src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
             :alt="movie.title"
+            loading="lazy"
           />
         </router-link>
         <button class="add-to-favs" @click="toggle(movie)" v-if="isMainView">
-        {{favorites.includes(movie) ? 'Added to favorites!' : 'Add to favorites'}}
+          {{
+            favorites.includes(movie)
+              ? "Added to favorites!"
+              : "Add to favorites"
+          }}
         </button>
       </li>
     </ul>
@@ -29,29 +50,32 @@
 </template>
 
 <script>
-
 export default {
-    props: {
+  props: {
     movies: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
   computed: {
     categoryName() {
-      return this.$store.state.categoryFetchedTitle
+      return this.$store.state.categoryFetchedTitle;
     },
     favorites() {
       return this.$store.getters.getUserFavorites;
     },
     isMainView() {
+<<<<<<< HEAD
       return this.$route.path === '/';
+=======
+      return this.$route.path === "/";
+>>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
     }
   },
   methods: {
     toggle(movie) {
-      this.$store.dispatch('addToFavs', movie);
-    } 
+      this.$store.dispatch("addToFavs", movie);
+    }
   }
 };
 </script>
@@ -72,13 +96,13 @@ export default {
       font-size: 34px;
       margin: 15px 0;
       text-transform: capitalize;
-  }
-  .header-link {
-    text-decoration: underline;
-    text-transform: capitalize;
-    cursor: pointer;
-    color: #000;
-  }
+    }
+    .header-link {
+      text-decoration: underline;
+      text-transform: capitalize;
+      cursor: pointer;
+      color: #000;
+    }
   }
 }
 .movies-list {
@@ -103,14 +127,14 @@ export default {
 }
 
 .add-to-favs {
-    border-radius: 2px;
-    border: 1px solid #000;
-    background-color: #dcdcdc;
-    cursor: pointer;
-    transition: opacity .3s;
+  border-radius: 2px;
+  border: 1px solid #000;
+  background-color: #dcdcdc;
+  cursor: pointer;
+  transition: opacity 0.3s;
 
-    &:hover {
-      opacity: .8;
-    }
+  &:hover {
+    opacity: 0.8;
+  }
 }
 </style>
