@@ -2,7 +2,7 @@
   <div
     class="hero-image"
     :style="{
-      backgroundImage: `url(http://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
+      backgroundImage: `url(http://image.tmdb.org/t/p/w500/${movie.backdrop_path})`
     }"
   >
     <div class="hero-image__text">
@@ -17,23 +17,23 @@ export default {
   props: {
     movie: {
       type: Object,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 .hero-image {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 70vh;
-    position: relative;
-    
-    @media (max-width: 769px) {
-      background-position: center;
-    }
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 70vh;
+  position: relative;
+
+  @media (max-width: 769px) {
+    background-position: center;
+  }
 
   &__text {
     color: #fff;
