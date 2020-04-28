@@ -25,12 +25,10 @@
     <ul class="actors-list">
       <Card v-for="person in specificMovieCast" :key="person.cast_id">
         <img
-          :src="`http://image.tmdb.org/t/p/w1280/${person.profile_path}`"
+          :src="`http://image.tmdb.org/t/p/w500/${person.profile_path}`"
           alt=""
           class="actor-card__img"
           loading="lazy"
-          width="250"
-          height="375"
         />
         <div class="actor-card__meta">
           <p>{{ person.name }}</p>
@@ -87,7 +85,9 @@ export default {
         this.specificMovieDetails = detailsObject;
 
         /* Prepare the data for list of cast (and filter out those without image)
-        For performence issues reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items. */
+        For performence reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items. 
+        Show only actors that have an image.
+        */
         let size = 10;
         const smallList = res[0].data.cast.slice(0, size);
         this.specificMovieCast = smallList.filter(item => item.profile_path != null);

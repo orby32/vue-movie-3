@@ -1,6 +1,6 @@
 <template>
   <div class="main-view-container">
-    <div class="page-header">
+    <div class="page-header"> 
     <h1>{{!isMainView ? 'Your favorites' : categoryName | formattedText}}</h1>
     
       <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
@@ -16,7 +16,7 @@
       >
         <router-link :to="{ name: 'movie', params: { id: movie.id } }">
           <img
-            :src="`http://image.tmdb.org/t/p/w1280/${movie.poster_path}`"
+            :src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
             :alt="movie.title"
           />
         </router-link>
@@ -45,7 +45,7 @@ export default {
       return this.$store.getters.getUserFavorites;
     },
     isMainView() {
-      return this.$route.path == '/';
+      return this.$route.path === '/';
     }
   },
   methods: {

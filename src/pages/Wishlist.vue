@@ -14,7 +14,7 @@ export default {
     },
     computed: {
     favorites() {
-      return this.$store.getters.getUserFavorites;
+            return this.$store.getters.getUserFavorites;
     },
     }
 }

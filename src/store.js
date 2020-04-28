@@ -27,8 +27,9 @@ export default new Vuex.Store({
       state.categoryFetchedTitle = payload;
     },
     ADD_AS_FAVORITE(state, movie) {
-      if(state.favorites.includes(movie)) {
-        state.favorites.splice(movie, 1)
+      let index = state.favorites.indexOf(movie);
+      if(index > -1) {
+        state.favorites.splice(index, 1)
       } else {
         state.favorites.push(movie);
       }
@@ -40,23 +41,10 @@ export default new Vuex.Store({
         `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
         .then(res => {
-          // commit mutation
+          // Set movies / commit mutation
           commit("SET_POPULAR", res.data.results);
 
-          // destructuring the api object to what is needed for heroImage
-          const { title, overview, backdrop_path } = res.data.results[0];
-          // create a new object
-          const heroObject = { title, overview, backdrop_path };
-          // commit mutation with new object
-          commit("SET_HERO", heroObject);
-        })
-        .catch(error => console.log(error));
-    },
-    getHeroDetails({ commit }) {
-      axios.get(
-        `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
-      )
-        .then(res => {
+          // Set hero details
           // destructuring the api object to what is needed for heroImage
           const { title, overview, backdrop_path } = res.data.results[0];
           // create a new object
@@ -80,5 +68,6 @@ export default new Vuex.Store({
     getUserFavorites(state) {
       return state.favorites;
     }
-  }
+  },
+  
 });

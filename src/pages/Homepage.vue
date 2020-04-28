@@ -21,14 +21,9 @@ export default {
         Tabs,
         MainView
     },
-    data() {
-      return {
-        page: 1
-      }
-    },
     created() {
+      // fetch movies and hero details
     this.$store.dispatch('fetchMovies');
-    this.$store.dispatch('getHeroDetails');
   },
     computed: { 
     popularMovies() {

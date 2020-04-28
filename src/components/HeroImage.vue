@@ -2,7 +2,7 @@
   <div
     class="hero-image"
     :style="{
-      backgroundImage: `url(http://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
+      backgroundImage: `url(http://image.tmdb.org/t/p/w500/${movie.backdrop_path})`,
     }"
   >
     <div class="hero-image__text">
