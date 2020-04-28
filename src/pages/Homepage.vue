@@ -14,7 +14,6 @@ import Tabs from "@/components/Tabs/Tabs";
 import MainView from "../components/MainView.vue";
 
 export default {
-<<<<<<< HEAD
     name: 'homepage',
     components: {
         HeroImage,
@@ -25,23 +24,6 @@ export default {
     created() {
       // fetch movies and hero details
     this.$store.dispatch('fetchMovies');
-=======
-  name: "homepage",
-  components: {
-    HeroImage,
-    SearchField,
-    Tabs,
-    MainView
-  },
-  data() {
-    return {
-      page: 1
-    };
-  },
-  created() {
-    this.$store.dispatch("fetchMovies");
-    // this.$store.dispatch('getHeroDetails');
->>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
   },
   computed: {
     popularMovies() {

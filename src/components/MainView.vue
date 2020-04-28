@@ -1,12 +1,12 @@
 <template>
   <div class="main-view-container">
-<<<<<<< HEAD
+
     <div class="page-header"> 
     <h1>{{!isMainView ? 'Your favorites' : categoryName | formattedText}}</h1>
     
       <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
       <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
-=======
+
     <div class="page-header">
       <h1>
         {{ !isMainView ? "Your favorites" : categoryName | formattedText }}
@@ -21,7 +21,6 @@
       <a @click="$router.go(-1)" class="header-link" v-else
         >Back to all movies</a
       >
->>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
     </div>
     <ul class="movies-list">
       <li
@@ -47,6 +46,7 @@
       </li>
     </ul>
   </div>
+  </div>
 </template>
 
 <script>
@@ -65,11 +65,7 @@ export default {
       return this.$store.getters.getUserFavorites;
     },
     isMainView() {
-<<<<<<< HEAD
       return this.$route.path === '/';
-=======
-      return this.$route.path === "/";
->>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
     }
   },
   methods: {

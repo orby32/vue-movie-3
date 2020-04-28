@@ -2,11 +2,7 @@
   <div
     class="hero-image"
     :style="{
-<<<<<<< HEAD
       backgroundImage: `url(http://image.tmdb.org/t/p/w500/${movie.backdrop_path})`,
-=======
-      backgroundImage: `url(http://image.tmdb.org/t/p/w500/${movie.backdrop_path})`
->>>>>>> cc6594a9ce1c3037368640665e73f7b590a6f895
     }"
   >
     <div class="hero-image__text">
