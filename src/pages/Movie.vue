@@ -64,7 +64,7 @@ export default {
   },
 
   created() {
-    // Fetc h an array of endpoints and then continue normally
+    // Fetch an array of endpoints and then continue normally
     Promise.all(this.urls.map((url) => axios.get(url)))
       .then((res) => {
         // Prepare the data for heroObject(HeroImage)
@@ -86,7 +86,7 @@ export default {
 
         /* Prepare the data for list of cast (and filter out those without image)
         For performence reasons, slice the returned array and take only the first 10 - change the size variable for take another amount of items. 
-        Show only actors that have an image.
+        Show only actors that have an image 
         */
         let size = 10;
         const smallList = res[0].data.cast.slice(0, size);

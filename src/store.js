@@ -1,8 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from 'axios';
+import VuexPersistence from 'vuex-persist';
 
 Vue.use(Vuex);
+
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+  reducer: state => ({
+    favorites: state.favorites
+  })
+})
 
 export default new Vuex.Store({
   state: {
@@ -33,10 +41,17 @@ export default new Vuex.Store({
       } else {
         state.favorites.push(movie);
       }
+    },
+    DELETE_FROM_FAVORITES(state, movie) {
+      let index = state.favorites.indexOf(movie)
+      state.favorites.splice(index, 1);
+    },
+    RESET_FAVORITES(state) {
+      state.favorites = [];
     }
   },
   actions: {
-    fetchMovies({ commit }) {
+    fetchData({ commit }) {
       axios.get(
         `https://api.themoviedb.org/3/movie/${this.state.categoryFetchedTitle}?api_key=${this.state.key}&language=en`
       )
@@ -46,9 +61,9 @@ export default new Vuex.Store({
 
           // Set hero details
           // destructuring the api object to what is needed for heroImage
-          const { title, overview, backdrop_path } = res.data.results[0];
+          const { title, overview, backdrop_path, id } = res.data.results[0];
           // create a new object
-          const heroObject = { title, overview, backdrop_path };
+          const heroObject = { title, overview, backdrop_path, id };
           // commit mutation with new object
           commit("SET_HERO", heroObject);
         })
@@ -56,6 +71,9 @@ export default new Vuex.Store({
     },
     addToFavs({commit}, movie) { 
       commit("ADD_AS_FAVORITE", movie)
+    },
+    deleteFromFavs({commit}, movie) {
+      commit('DELETE_FROM_FAVORITES', movie);
     }
   },
   getters: {
@@ -69,5 +87,5 @@ export default new Vuex.Store({
       return state.favorites;
     }
   },
-  
+  plugins: [vuexLocal.plugin]
 });

@@ -1,8 +1,8 @@
 <template>
 <div>
-
+     <!-- <button  v-if="!favoritesIsEmpty" @click="resetFavorites" class="clear-wishlist">Clear Whishlit</button> -->
    <MainView :movies="favorites"></MainView>
-   <h2 v-if="favorites.length <= 0">You didn't pick any movie</h2>
+   <h2 v-if="favoritesIsEmpty">You didn't pick any movie</h2>
 </div>
 </template>
 
@@ -16,6 +16,9 @@ export default {
     favorites() {
             return this.$store.getters.getUserFavorites;
     },
+    favoritesIsEmpty() {
+        return this.favorites.length < 1;
+    }
     }
 }
 </script>

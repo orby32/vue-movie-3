@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeroImage :movie="heroDetails" v-if="heroDetails"></HeroImage>
+    <HeroImage :movie="getHeroDetails" v-if="getHeroDetails"></HeroImage>
     <SearchField></SearchField>
     <Tabs></Tabs>
     <MainView :movies="searchFilter" v-if="popularMovies"></MainView>
@@ -12,6 +12,7 @@ import HeroImage from "../components/HeroImage.vue";
 import SearchField from "../components/SearchField.vue";
 import Tabs from "@/components/Tabs/Tabs";
 import MainView from "../components/MainView.vue";
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'homepage',
@@ -23,15 +24,13 @@ export default {
     },
     created() {
       // fetch movies and hero details
-    this.$store.dispatch('fetchMovies');
+    this.$store.dispatch('fetchData');
   },
   computed: {
-    popularMovies() {
-      return this.$store.getters.popularMovies;
-    },
-    heroDetails() {
-      return this.$store.getters.getHeroDetails;
-    },
+    ...mapGetters([
+      'popularMovies',
+      'getHeroDetails'
+    ]),
     searchFilter() {
       return this.popularMovies.filter(movie => {
         return movie.title.toLowerCase().match(this.$store.state.searchTerm);

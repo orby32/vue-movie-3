@@ -1,5 +1,7 @@
 <template>
+<router-link :to="{ name: 'movie', params: { id: movie.id } }">
   <div
+    v-if="movie.backdrop_path"
     class="hero-image"
     :style="{
       backgroundImage: `url(http://image.tmdb.org/t/p/w1280/${movie.backdrop_path})`,
@@ -10,6 +12,7 @@
       <p>{{ movie.overview }}</p>
     </div>
   </div>
+</router-link>
 </template>
 
 <script>

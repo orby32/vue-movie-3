@@ -14,10 +14,15 @@ export default {};
   max-width: 300px;
   margin: auto;
   text-align: center;
+  transition: all .3s;
 
   img {
     width: 100%;
     height: auto;
+  }
+
+  &:hover {
+      transform: scale(1.05);
   }
 }
 </style>

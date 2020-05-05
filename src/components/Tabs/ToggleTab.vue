@@ -26,7 +26,7 @@ export default {
             // change the state
             this.$store.commit('CHANGE_FETCHED_CATEGORY', e.target.id);
             // call to fetch actions with new category
-            this.$store.dispatch('fetchMovies');
+            this.$store.dispatch('fetchData');
         }
     }
 }

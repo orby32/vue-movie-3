@@ -20,11 +20,12 @@
             loading="lazy"
           />
         </router-link>
-        <button class="add-to-favs" @click="toggle(movie)" v-if="isMainView">
+          <button class="delete-movie" @click="deleteMovie(movie)" v-if="isWishlistView">Remove from whishlist</button>
+          <button class="add-to-favs" @click="toggleSelect(movie)" v-if="isMainView">
           {{
             favorites.includes(movie)
               ? "Added to favorites!"
-              : "Add to favorites"
+              : "Add to favorites" 
           }}
         </button>
       </li>
@@ -49,11 +50,17 @@ export default {
     },
     isMainView() {
       return this.$route.path === '/';
+    },
+    isWishlistView() {
+      return this.$route.path === '/favorites';
     }
   },
   methods: {
-    toggle(movie) {
+    toggleSelect(movie) {
       this.$store.dispatch("addToFavs", movie);
+    },
+    deleteMovie(movie) {
+      this.$store.dispatch('deleteFromFavs', movie);
     }
   }
 };
