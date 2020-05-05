@@ -2,7 +2,6 @@
   <div class="main-view-container">
     <div class="page-header"> 
     <h1>{{isMainView ? categoryName : 'Your favorites' | formattedText }}</h1>
-    
       <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
       <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
     </div>
@@ -20,6 +19,7 @@
             loading="lazy"
           />
         </router-link>
+
           <button class="delete-movie" @click="deleteMovie(movie)" v-if="isWishlistView">Remove from whishlist</button>
           <button class="add-to-favs" @click="toggleSelect(movie)" v-if="isMainView">
           {{
@@ -91,6 +91,7 @@ export default {
     }
   }
 }
+
 .movies-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

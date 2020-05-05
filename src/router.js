@@ -1,6 +1,3 @@
-// import Homepage from '../src/pages/Homepage.vue';
-// import Movie from '../src/pages/Movie.vue';
-
 export const routes = [
     {
         path: '/', 

@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <Header></Header>
+    <transition name="fade">
     <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -20,8 +22,8 @@ export default {
 <style lang="scss">
 @import "@/sass/_reset.scss";
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade-enter-active {
+  transition: opacity 1.3s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
