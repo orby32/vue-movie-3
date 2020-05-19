@@ -65,7 +65,7 @@ export default {
 
   created() {
     // Fetch an array of endpoints and then continue normally
-    Promise.all(this.urls.map((url) => axios.get(url)))
+    Promise.allSettled(this.urls.map((url) => axios.get(url)))
       .then((res) => {
         // Prepare the data for heroObject(HeroImage)
         const { title, overview, backdrop_path } = res[1].data;
