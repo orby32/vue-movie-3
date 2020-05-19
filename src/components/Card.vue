@@ -4,10 +4,6 @@
   </li>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style lang="scss">
 .actor-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -19,6 +15,7 @@ export default {};
   img {
     width: 100%;
     height: auto;
+    border-radius: 2px;
   }
 
   &:hover {

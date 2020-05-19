@@ -30,6 +30,7 @@
         </button>
       </li>
     </ul>
+    <p v-if="movies.length === 0">{{emptyMessage}}</p>
   </div>
 </template>
 
@@ -39,6 +40,11 @@ export default {
     movies: {
       type: Array,
       required: true
+    }
+  },
+  data() {
+    return {
+      emptyMessage: 'No movies to show'
     }
   },
   computed: {
@@ -118,6 +124,8 @@ export default {
   border: 1px solid #000;
   background-color: #dcdcdc;
   cursor: pointer;
+  padding: 2px 5px;
+  font-size: 13px;
   transition: opacity 0.3s;
 
   &:hover {

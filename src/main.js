@@ -3,8 +3,12 @@ import App from './App.vue'
 import store from './store';
 import VueRouter from "vue-router";
 import { routes } from './router';
+import Vuetify from 'vuetify';
+import 'vuetify/dist/vuetify.min.css';
+import vuetify from './plugins/vuetify';
 
 Vue.use(VueRouter);
+Vue.use(Vuetify);
 
 const router = new VueRouter({
   mode: 'history',
@@ -19,7 +23,7 @@ Vue.filter('money', function(value) {
     minimumFractionDigits: 0
   });
   return formatter.format(value);
-}) 
+})
 Vue.filter('hour', function(value) {
   if(typeof value !== "number") return value;
   let hours = Math.floor(value / 60);
@@ -35,5 +39,6 @@ new Vue({
   el: '#app',
   render: h => h(App),
   store,
-  router,
+  vuetify,
+  router
 })

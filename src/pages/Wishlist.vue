@@ -1,8 +1,7 @@
 <template>
 <div>
-     <!-- <button  v-if="!favoritesIsEmpty" @click="resetFavorites" class="clear-wishlist">Clear Whishlit</button> -->
    <MainView :movies="favorites"></MainView>
-   <h2 v-if="favoritesIsEmpty">You didn't pick any movie</h2>
+   <h2 class="message" v-if="favoritesIsEmpty">You didn't pick any movie</h2>
 </div>
 </template>
 
@@ -27,5 +26,8 @@ export default {
     h1 {
        font-size: 34px;
         margin: 15px 0; 
+    }
+    .message {
+        text-align: center;
     }
 </style>
