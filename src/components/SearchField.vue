@@ -1,8 +1,11 @@
 <template>
   <div class="search-bar">
     <div class="search-bar-content">
-      <input type="text" placeholder="Search..." v-model="searchTerm" />
+      <input type="text" placeholder="Search from the list..." v-model="searchTerm"/>
     </div>
+     <router-link :to="{ name: 'results'}">
+       Looking for another movie?
+     </router-link>
   </div>
 </template>
 

@@ -19,7 +19,8 @@ export default new Vuex.Store({
     hero: "",
     searchTerm: "",
     categoryFetchedTitle: 'popular',
-    favorites: []
+    favorites: [],
+    personData: ""
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -31,6 +32,10 @@ export default new Vuex.Store({
     UPDATE_SEARCH_TERM(state, payload) {
       state.searchTerm = payload;
     },
+    SET_PERSON_DATA(state, payload) {
+      state.personData = payload
+    },
+
     CHANGE_FETCHED_CATEGORY(state, payload) {
       state.categoryFetchedTitle = payload;
     },
@@ -69,6 +74,14 @@ export default new Vuex.Store({
         })
         .catch(error => console.log(error));
     },
+    fetchPersonData({commit}, personId) {
+      axios.get(`https://api.themoviedb.org/3/person/${personId}?api_key=${this.state.key}&language=en-US`)
+      .then(res => {
+        console.log(res.data)
+        commit("SET_PERSON_DATA", res.data);
+      })
+    },
+
     addToFavs({commit}, movie) { 
       commit("ADD_AS_FAVORITE", movie)
     },
@@ -85,6 +98,9 @@ export default new Vuex.Store({
     },
     getUserFavorites(state) {
       return state.favorites;
+    },
+    getPersonData(state) {
+      return state.personData;
     }
   },
   plugins: [vuexLocal.plugin]

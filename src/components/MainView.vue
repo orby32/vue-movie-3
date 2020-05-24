@@ -1,10 +1,11 @@
 <template>
   <div class="main-view-container">
     <div class="page-header"> 
-    <h1>{{isMainView ? categoryName : 'Your favorites' | formattedText }}</h1>
-      <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites</router-link>
+    <h1>{{isMainView ? categoryName : $route.path | formattedText }}</h1>
+      <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites({{favorites.length}})</router-link>
       <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
     </div>
+
     <ul class="movies-list">
       <li
         class="movies-list__item"
@@ -24,13 +25,13 @@
           <button class="add-to-favs" @click="toggleSelect(movie)" v-if="isMainView">
           {{
             favorites.includes(movie)
-              ? "Added to favorites!"
+              ? "Remove from favorites"
               : "Add to favorites" 
           }}
         </button>
       </li>
     </ul>
-    <p v-if="movies.length === 0">{{emptyMessage}}</p>
+    <p v-if="!isWishlistView && movies.length === 0">{{emptyMessage}}</p>
   </div>
 </template>
 

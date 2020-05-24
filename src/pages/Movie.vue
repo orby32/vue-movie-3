@@ -23,7 +23,9 @@
     </div>
 
     <ul class="actors-list">
+      
       <Card v-for="person in specificMovieCast" :key="person.cast_id">
+        <router-link :to="{ name: 'person', params: { id: person.id } }">
         <img
           :src="`http://image.tmdb.org/t/p/w500/${person.profile_path}`"
           alt=""
@@ -34,6 +36,7 @@
           <p>{{ person.name }}</p>
           <p>{{ person.character }}</p>
         </div>
+        </router-link>
       </Card>
     </ul>
   </div>
@@ -65,7 +68,7 @@ export default {
 
   created() {
     // Fetch an array of endpoints and then continue normally
-    Promise.allSettled(this.urls.map((url) => axios.get(url)))
+    Promise.all(this.urls.map((url) => axios.get(url)))
       .then((res) => {
         // Prepare the data for heroObject(HeroImage)
         const { title, overview, backdrop_path } = res[1].data;
@@ -127,11 +130,13 @@ export default {
 .movie-details {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-gap: 20px;
+    justify-items: center;
     align-items: center;
     padding: 30px;
-    background-color: #4a4a4a;
-    color: #fff;
+    background-color: #dcdcdc;
+    color: #4a4a4a;
+
+    p { margin-bottom: 0;}
 
     @media (max-width: 768px) {
     grid-template-columns: 1fr;
