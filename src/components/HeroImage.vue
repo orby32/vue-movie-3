@@ -41,17 +41,18 @@ export default {
   &__text {
     color: #fff;
     position: absolute;
-    top: 50%;
+    top: 0;
     left: 10%;
-    transform: translateY(-50%);
+    
     h1 {
       font-size: 48px;
 
       font-weight: normal;
     }
     p {
-      max-width: 500px;
-      font-size: 22px;
+    max-width: 500px;
+    font-size: 19px;
+    font-weight: 300;
     }
   }
 }

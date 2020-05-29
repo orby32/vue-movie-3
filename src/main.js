@@ -31,7 +31,7 @@ Vue.filter('hour', function(value) {
   return `${hours}:${minutes}h` ;
 })
 Vue.filter('formattedText', function(value) {
-  let newValue = value.replace(/[/_]/g,' '); // replace _ or /
+  let newValue = value.replace(/[/_]/g,' '); // replace _ and /
   return newValue;
 })
 

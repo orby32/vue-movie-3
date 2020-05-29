@@ -20,7 +20,8 @@ export default new Vuex.Store({
     searchTerm: "",
     categoryFetchedTitle: 'popular',
     favorites: [],
-    personData: ""
+    personData: "",
+    searchResults: []
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -35,7 +36,9 @@ export default new Vuex.Store({
     SET_PERSON_DATA(state, payload) {
       state.personData = payload
     },
-
+    SET_SEARCH_RESULTS(state, payload) {
+      state.searchResults = payload;
+    },
     CHANGE_FETCHED_CATEGORY(state, payload) {
       state.categoryFetchedTitle = payload;
     },
@@ -81,6 +84,14 @@ export default new Vuex.Store({
         commit("SET_PERSON_DATA", res.data);
       })
     },
+    fetchSearchResults({commit}, URI) {
+      axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d1a4edd7c25b0afc72e1f8debe620e61&language=en-US&page=1+2&include_adult=false&query=${URI}`)
+      .then (res => {
+        const searchResults = res.data.results.filter(el => el.backdrop_path !== null && el.poster_path !== null);
+        commit('SET_SEARCH_RESULTS', searchResults)
+    })
+    .catch(e => console.log(e))
+    },
 
     addToFavs({commit}, movie) { 
       commit("ADD_AS_FAVORITE", movie)
@@ -101,6 +112,9 @@ export default new Vuex.Store({
     },
     getPersonData(state) {
       return state.personData;
+    },
+    getSearchResults(state) {
+      return state.searchResults;
     }
   },
   plugins: [vuexLocal.plugin]

@@ -2,17 +2,16 @@
 <div>
         <div class="search-bar">
             <div class="search-bar-content">
-        <input type="text" v-model="term" @keyup.enter="fetchResults" placeholder="Type a movie">
+        <input type="text" v-model="term" @keyup.enter="getSearchResults" placeholder="Type a movie">
     </div>
     </div>
-        <MainView :movies="results"></MainView>
+        <MainView :movies="searchResults"></MainView>
 
 </div>
 
 </template>
 
 <script>
-    import axios from 'axios'
     import MainView from '@/components/MainView.vue'
 
     export default {
@@ -22,26 +21,23 @@
     },
     data() {
         return {
-            term: '',
-            results: []
+            term: ''
         }
     },
     computed: {
         unicodeUriTerm() {
             return encodeURI(this.term);
+        },
+        searchResults() {
+            return this.$store.getters.getSearchResults;
         }
     },
     methods: {
-        fetchResults() {
-            axios.get(`https://api.themoviedb.org/3/search/movie?api_key=d1a4edd7c25b0afc72e1f8debe620e61&language=en-US&page=1+2&include_adult=false&query=${this.unicodeUriTerm}`)
-            // .then(response => response.json())
-            .then (res => {
-                this.results = res.data.results.filter(el => el.backdrop_path !== null && el.poster_path !== null);
-            })
-            .catch(e => console.log(e))
+        getSearchResults() {
+            this.$store.dispatch('fetchSearchResults', this.unicodeUriTerm)
         }
     }
-}
+    }
 </script>
 
 <style scoped lang="scss">
