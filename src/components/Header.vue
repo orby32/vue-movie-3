@@ -1,7 +1,9 @@
 <template>
   <header class="header">
     <div class="header__content">
-      <a href="/" class="app-logo">Vue Movie</a>
+      <router-link :to="{ name: 'homepage' }"
+        ><a class="app-logo">Vue Movie</a></router-link
+      >
       <a href="https://www.themoviedb.org/" target="_blank">
         <img src="../assets/tmdb_logo.png" alt="" class="powered-by-logo" />
       </a>
@@ -33,14 +35,17 @@
       color: #fff;
       font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
     }
+    .router-link-active {
+      text-decoration: none;
+    }
     .header-link {
       color: #fff;
       font-size: 20px;
       text-decoration: none;
-      transition: opacity .3s;
+      transition: opacity 0.3s;
 
       &:hover {
-        opacity: .8;
+        opacity: 0.8;
       }
     }
   }

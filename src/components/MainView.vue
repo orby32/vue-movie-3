@@ -94,7 +94,7 @@ export default {
 .main-view-container {
   max-width: 1530px;
   overflow: hidden;
-  padding: 0 20px;
+  padding: 20px;
   margin: 0 auto;
 
   .page-header {

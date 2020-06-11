@@ -132,7 +132,9 @@ export default new Vuex.Store({
         )
         .then((res) => {
           let sizeOfShown = 10;
-          const castList = res.data.cast.slice(0, sizeOfShown);
+          const castList = res.data.cast
+            .slice(0, sizeOfShown)
+            .filter((item) => item.profile_path !== null);
           commit("SET_MOVIE_CAST", castList);
         });
     },

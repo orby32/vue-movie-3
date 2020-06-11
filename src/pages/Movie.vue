@@ -33,7 +33,7 @@
         <router-link :to="{ name: 'person', params: { id: person.id } }">
           <img
             :src="`http://image.tmdb.org/t/p/w500/${person.profile_path}`"
-            alt=""
+            :alt="person.name"
             class="actor-card__img"
             loading="lazy"
           />

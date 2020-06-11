@@ -3,7 +3,7 @@
     <div class="person-data">
       <div>
         <h1>{{ personData.name }}</h1>
-        <p>{{ personData.birthday | date }}</p>
+        <p v-if="personData">{{ personData.birthday | date }}</p>
         <p>{{ personData.biography }}</p>
         <keep-alive>
           <a @click="$router.go(-1)">Back to all cast</a>
@@ -25,7 +25,7 @@ export default {
       return this.$store.getters.getPersonData;
     },
   },
-  mounted() {
+  created() {
     this.$store.dispatch("fetchPersonData", this.$route.params.id);
   },
 };
