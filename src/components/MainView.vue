@@ -1,9 +1,16 @@
 <template>
   <div class="main-view-container">
-    <div class="page-header"> 
-    <h1>{{isMainView ? categoryName : $route.path | formattedText }}</h1>
-      <router-link :to="{ name: 'wishlist'}" class="header-link" v-if="isMainView">Your favorites({{favorites.length}})</router-link>
-      <a @click="$router.go(-1)" class="header-link" v-else>Back to all movies</a>
+    <div class="page-header">
+      <h1>{{ isMainView ? categoryName : $route.path | formattedText }}</h1>
+      <router-link
+        :to="{ name: 'wishlist' }"
+        class="header-link"
+        v-if="isMainView"
+        >Your favorites({{ favorites.length }})</router-link
+      >
+      <a @click="$router.go(-1)" class="header-link" v-else
+        >Back to all movies</a
+      >
     </div>
 
     <ul class="movies-list">
@@ -21,17 +28,27 @@
           />
         </router-link>
 
-          <button class="delete-movie" @click="deleteMovie(movie)" v-if="isWishlistView">Remove from whishlist</button>
-          <button class="add-to-favs" @click="toggleSelect(movie)" v-if="isMainView">
+        <button
+          class="delete-movie"
+          @click="deleteMovie(movie)"
+          v-if="isWishlistView"
+        >
+          Remove from whishlist
+        </button>
+        <button
+          class="add-to-favs"
+          @click="toggleSelect(movie)"
+          v-if="isMainView"
+        >
           {{
             favorites.includes(movie)
               ? "Remove from favorites"
-              : "Add to favorites" 
+              : "Add to favorites"
           }}
         </button>
       </li>
     </ul>
-    <p v-if="!isWishlistView && movies.length === 0">{{emptyMessage}}</p>
+    <p v-if="!isWishlistView && movies.length === 0">{{ emptyMessage }}</p>
   </div>
 </template>
 
@@ -40,13 +57,13 @@ export default {
   props: {
     movies: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      emptyMessage: 'No movies to show'
-    }
+      emptyMessage: "No movies to show",
+    };
   },
   computed: {
     categoryName() {
@@ -56,20 +73,20 @@ export default {
       return this.$store.getters.getUserFavorites;
     },
     isMainView() {
-      return this.$route.path === '/';
+      return this.$route.path === "/";
     },
     isWishlistView() {
-      return this.$route.path === '/favorites';
-    }
+      return this.$route.path === "/favorites";
+    },
   },
   methods: {
     toggleSelect(movie) {
       this.$store.dispatch("addToFavs", movie);
     },
     deleteMovie(movie) {
-      this.$store.dispatch('deleteFromFavs', movie);
-    }
-  }
+      this.$store.dispatch("deleteFromFavs", movie);
+    },
+  },
 };
 </script>
 

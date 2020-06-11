@@ -1,44 +1,25 @@
-import Vue from 'vue'
-import App from './App.vue'
-import store from './store';
+import Vue from "vue";
+import App from "./App.vue";
+import store from "./store";
 import VueRouter from "vue-router";
-import { routes } from './router';
-import Vuetify from 'vuetify';
-import 'vuetify/dist/vuetify.min.css';
-import vuetify from './plugins/vuetify';
+import { routes } from "./router";
+import Vuetify from "vuetify";
+import "vuetify/dist/vuetify.min.css";
+import vuetify from "./plugins/vuetify";
+import "./filters";
 
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 
 const router = new VueRouter({
-  mode: 'history',
-  routes
-})
-
-Vue.filter('money', function(value) {
-  if (typeof value !== "number") return value;
-  let formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    minimumFractionDigits: 0
-  });
-  return formatter.format(value);
-})
-Vue.filter('hour', function(value) {
-  if(typeof value !== "number") return value;
-  let hours = Math.floor(value / 60);
-  let minutes = value % 60;
-  return `${hours}:${minutes}h` ;
-})
-Vue.filter('formattedText', function(value) {
-  let newValue = value.replace(/[/_]/g,' '); // replace _ and /
-  return newValue;
-})
+  mode: "history",
+  routes,
+});
 
 new Vue({
-  el: '#app',
-  render: h => h(App),
+  el: "#app",
+  render: (h) => h(App),
   store,
   vuetify,
-  router
-})
+  router,
+});
