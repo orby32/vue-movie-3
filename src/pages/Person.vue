@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="person-data">
+    <div class="person-data" v-if="personData">
       <div>
         <h1>{{ personData.name }}</h1>
         <p v-if="personData">{{ personData.birthday | date }}</p>
@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  name: 'person',
   computed: {
     personData() {
       return this.$store.getters.getPersonData;

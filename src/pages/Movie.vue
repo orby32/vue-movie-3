@@ -28,7 +28,10 @@
       <p>Running time: {{ movieDetails.runtime | hour }}</p>
     </div>
 
-    <ul class="actors-list">
+
+<div class="movie-page">
+      <!-- <router-link tag="a" :to="{path: '/', component: homepage}" class="header-link">Go Back</router-link> -->
+          <ul class="actors-list">
       <Card v-for="person in movieCast" :key="person.cast_id">
         <router-link :to="{ name: 'person', params: { id: person.id } }">
           <img
@@ -44,6 +47,8 @@
         </router-link>
       </Card>
     </ul>
+</div>
+
   </div>
 </template>
 
@@ -52,7 +57,7 @@ import HeroImage from "@/components/HeroImage.vue";
 const Card = () => import("@/components/Card.vue"); // lazy loading component
 
 export default {
-  name: "Movie",
+  name: "movie",
   components: {
     HeroImage,
     Card,
@@ -82,13 +87,19 @@ export default {
 </script>
 
 <style lang="scss">
+.movie-page {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  width: 100%;
+}
+.v-application ul, .v-application ol {padding: 0}
+
 .actors-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 250px);
+  grid-template-columns: repeat(auto-fit, 257px);
   grid-gap: 10px;
-  padding: 40px 0;
-  width: 100%;
-  justify-content: center;
+  // justify-content: center;
 
   .actor-card {
     list-style: none;
@@ -139,4 +150,10 @@ export default {
     }
   }
 }
+  a.header-link {
+      text-decoration: underline;
+      text-transform: capitalize;
+      cursor: pointer;
+      color: #000;
+  }
 </style>

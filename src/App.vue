@@ -2,10 +2,9 @@
   <v-app dark>
 <Header/>
     <v-content>
-      <keep-alive include="Movie">
+      <keep-alive :exclude="['movie', 'person']"> 
       <router-view/>
       </keep-alive>
-
     </v-content>
   </v-app>
 </template>

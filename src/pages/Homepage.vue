@@ -4,7 +4,6 @@
     <SearchField></SearchField>
     <Tabs></Tabs>
     <MainView :movies="searchFilter" v-if="popularMovies"></MainView>
-      
   </div>
 </template>
 
