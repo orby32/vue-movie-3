@@ -15,6 +15,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     key: "d1a4edd7c25b0afc72e1f8debe620e61",
+    activeMovieId: '',
     popularMovies: "",
     hero: "",
     searchTerm: "",
@@ -26,6 +27,7 @@ export default new Vuex.Store({
     specificMovieDetails: "",
     specificMovieCast: "",
     searchResults: [],
+    recommendations: ""
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -33,6 +35,9 @@ export default new Vuex.Store({
     },
     SET_HERO(state, payload) {
       state.hero = payload;
+    },
+    SET_RECOMMENDATIONS(state, payload) {
+      state.recommendations = payload;
     },
     SET_MOVIE_DETAILS(state, payload) {
       state.specificMovieDetails = payload;
@@ -122,6 +127,7 @@ export default new Vuex.Store({
             revenue,
             vote_average,
           };
+          this.state.activeMovieId = movieId;
           commit("SET_MOVIE_DETAILS", detailsObject);
         });
     },
@@ -144,7 +150,6 @@ export default new Vuex.Store({
           `https://api.themoviedb.org/3/person/${personId}?api_key=${this.state.key}&language=en-US`
         )
         .then((res) => {
-          console.log(res.data);
           commit("SET_PERSON_DATA", res.data);
         });
     },
@@ -160,6 +165,14 @@ export default new Vuex.Store({
           commit("SET_SEARCH_RESULTS", searchResults);
         })
         .catch((e) => alert(e));
+    },
+    fetchRecommendations({commit}, movieId) {
+      axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.state.key}&language=en-US&page=1`)
+      .then(res => {
+        let sizeOfMovies = 5;
+       const recommendations = res.data.results.slice(0, sizeOfMovies);
+       commit('SET_RECOMMENDATIONS', recommendations)
+      })
     },
     addToFavs({ commit }, movie) {
       commit("ADD_AS_FAVORITE", movie);
@@ -193,6 +206,12 @@ export default new Vuex.Store({
     getMovieCastById(state) {
       return state.specificMovieCast;
     },
+    getRecommendations(state) {
+      return state.recommendations;
+    },
+    getActiveMovie(state) {
+      return state.activeMovieId;
+    }
   },
   plugins: [vuexLocal.plugin],
 });

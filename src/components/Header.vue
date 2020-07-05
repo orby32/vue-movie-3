@@ -1,8 +1,8 @@
 <template>
   <header class="header">
     <div class="header__content">
-      <router-link :to="{ name: 'homepage' }"
-        ><a class="app-logo">Vue Movie</a></router-link
+      <router-link :to="{ name: 'homepage' }" tag="a" class="app-logo"
+        >Vue Movie</router-link
       >
       <a href="https://www.themoviedb.org/" target="_blank">
         <img src="../assets/tmdb_logo.png" alt="" class="powered-by-logo" />

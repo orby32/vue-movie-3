@@ -1,6 +1,6 @@
 <template>
   <div class="main-view-container">
-    <div class="page-header">
+    <div class="page-header" v-if="isMovieView">
       <h1>{{ isMainView ? categoryName : $route.path | formattedText }}</h1>
       <router-link
         :to="{ name: 'wishlist' }"
@@ -20,7 +20,7 @@
         :key="movie.id"
         :title="movie.title"
       >
-        <router-link :to="{ name: 'movie', params: { id: movie.id } }">
+        <router-link :key="$route.path" :to="{ name: 'movie', params: { id: movie.id } }">
           <img
             :src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
             :alt="movie.title"
@@ -74,6 +74,9 @@ export default {
     },
     isMainView() {
       return this.$route.path === "/";
+    },
+    isMovieView() {
+      return this.$route.path === 'movies';
     },
     isWishlistView() {
       return this.$route.path === "/favorites";

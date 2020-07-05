@@ -1,5 +1,4 @@
 <template>
-<router-link :to="{ name: 'movie', params: { id: movie.id } }">
   <div
     v-if="movie.backdrop_path"
     class="hero-image"
@@ -12,7 +11,6 @@
       <p>{{ movie.overview }}</p>
     </div>
   </div>
-</router-link>
 </template>
 
 <script>

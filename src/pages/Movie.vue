@@ -28,7 +28,6 @@
       <p>Running time: {{ movieDetails.runtime | hour }}</p>
     </div>
 
-
 <div class="movie-page">
       <!-- <router-link tag="a" :to="{path: '/', component: homepage}" class="header-link">Go Back</router-link> -->
           <ul class="actors-list">
@@ -47,8 +46,17 @@
         </router-link>
       </Card>
     </ul>
+    <div class="recommendations">
+  <h1 class="recommendations__heading">You may also like</h1>
+  <div class="recommendations__items">
+<div v-for="movie in recommendations" :key="movie.id">
+  <router-link :to="{ name: 'movie', params: { id: movie.id } }" target="_blank">
+    <img :src="`http://image.tmdb.org/t/p/w300/${movie.poster_path}`" alt="">
+  </router-link>
 </div>
-
+</div>
+</div>
+</div>
   </div>
 </template>
 
@@ -60,19 +68,17 @@ export default {
   name: "movie",
   components: {
     HeroImage,
-    Card,
-  },
-  data() {
-    return {
-      movieId: this.$route.params.id,
-    };
+    Card
   },
   created() {
     this.$store.dispatch("fetchMovie", this.movieId);
     this.$store.dispatch("fetchMovieCast", this.movieId);
+    this.$store.dispatch('fetchRecommendations', this.movieId)
   },
-
   computed: {
+    movieId() {
+      return this.$route.params.id;
+    },
     movieHero() {
       return this.$store.getters.getHeroByMovieId;
     },
@@ -82,7 +88,13 @@ export default {
     movieCast() {
       return this.$store.getters.getMovieCastById;
     },
-  },
+    favorites() {
+      return this.$store.getters.getUserFavorites;
+    },
+    recommendations() {
+      return this.$store.getters.getRecommendations;
+    },
+  }
 };
 </script>
 
@@ -150,6 +162,21 @@ export default {
     }
   }
 }
+.recommendations {
+   margin: 40px 0;
+
+   &__heading {
+     margin-bottom: 20px;
+   }
+   
+   &__items {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  grid-gap: 20px;
+}
+   }
+
   a.header-link {
       text-decoration: underline;
       text-transform: capitalize;

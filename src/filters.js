@@ -23,6 +23,9 @@ Vue.filter("formattedText", function(value) {
 });
 
 Vue.filter("date", function(value) {
+  if (!value) {
+    return '';
+  }
   let date = value.replace(/[-]/g, "/"); // replace - with /
   return date;
 });
