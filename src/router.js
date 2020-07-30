@@ -29,10 +29,10 @@ export const routes = [
     component: () =>
       import(/* webpackPrefetch: true */ "../src/pages/Person.vue"),
   },
-  {
-    path: "*",
-    name: "error",
-    component: () =>
-    import(/* webpackPrefetch: true */ "../src/pages/Error.vue"),
-  }
+  // {
+  //   path: "*",
+  //   name: "error",
+  //   component: () =>
+  //   import(/* webpackPrefetch: true */ "../src/pages/Error.vue"),
+  // }
 ];
