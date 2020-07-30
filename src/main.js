@@ -8,12 +8,13 @@ import "vuetify/dist/vuetify.min.css";
 import vuetify from "./plugins/vuetify";
 import "./filters";
 
+
 Vue.use(VueRouter);
 Vue.use(Vuetify);
 
 const router = new VueRouter({
   mode: "history",
-  routes,
+  routes
 });
 
 new Vue({
@@ -21,5 +22,5 @@ new Vue({
   render: (h) => h(App),
   store,
   vuetify,
-  router,
+  router
 });

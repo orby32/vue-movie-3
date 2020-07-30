@@ -11,6 +11,8 @@
   </header>
 </template>
 
+
+
 <style lang="scss">
 .header {
   height: auto;
