@@ -8,6 +8,7 @@ module.exports = {
         chunks: 'all'
       }
     }
+    
   },
   test: /\.scss$/,
   use: [
