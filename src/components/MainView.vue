@@ -40,7 +40,6 @@
               : "Add to favorites"
           }}
         </button>
-
       </li>
     </ul>
     <p v-if="!isWishlistView && movies.length === 0">{{ emptyMessage }}</p>
