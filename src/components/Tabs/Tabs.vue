@@ -1,25 +1,24 @@
 <template>
-<div class="tabs">
-    <ToggleTab label="top_rated"></ToggleTab>
+  <div class="tabs">
+    <ToggleTab label="top_rated" checked></ToggleTab>
     <ToggleTab label="popular"></ToggleTab>
     <ToggleTab label="upcoming"></ToggleTab>
-</div>
+  </div>
 </template>
 
 <script>
 import ToggleTab from "./ToggleTab.vue";
 export default {
-    components: {
-        ToggleTab
-    }
-}
+  components: {
+    ToggleTab,
+  },
+};
 </script>
 
 <style scoped>
 .tabs {
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 }
 </style>

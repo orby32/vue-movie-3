@@ -15,7 +15,7 @@ const vuexLocal = new VuexPersistence({
 export default new Vuex.Store({
   state: {
     key: "d1a4edd7c25b0afc72e1f8debe620e61",
-    activeMovieId: '',
+    activeMovieId: "",
     popularMovies: "",
     hero: "",
     searchTerm: "",
@@ -27,7 +27,7 @@ export default new Vuex.Store({
     specificMovieDetails: "",
     specificMovieCast: "",
     searchResults: [],
-    recommendations: ""
+    recommendations: "",
   },
   mutations: {
     SET_POPULAR(state, payload) {
@@ -62,7 +62,7 @@ export default new Vuex.Store({
     },
     ADD_AS_FAVORITE(state, movie) {
       let index = state.favorites.indexOf(movie);
-      if (state.favorites.find(el => el.id === movie.id) !== undefined) {
+      if (state.favorites.find((el) => el.id === movie.id) !== undefined) {
         state.favorites.splice(index, 1);
       } else {
         state.favorites.push(movie);
@@ -166,13 +166,16 @@ export default new Vuex.Store({
         })
         .catch((e) => alert(e));
     },
-    fetchRecommendations({commit}, movieId) {
-      axios.get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.state.key}&language=en-US&page=1`)
-      .then(res => {
-        let sizeOfMovies = 5;
-       const recommendations = res.data.results.slice(0, sizeOfMovies);
-       commit('SET_RECOMMENDATIONS', recommendations)
-      })
+    fetchRecommendations({ commit }, movieId) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${this.state.key}&language=en-US&page=1`
+        )
+        .then((res) => {
+          let sizeOfMovies = 5;
+          const recommendations = res.data.results.slice(0, sizeOfMovies);
+          commit("SET_RECOMMENDATIONS", recommendations);
+        });
     },
     addToFavs({ commit }, movie) {
       commit("ADD_AS_FAVORITE", movie);
@@ -211,7 +214,7 @@ export default new Vuex.Store({
     },
     getActiveMovie(state) {
       return state.activeMovieId;
-    }
+    },
   },
   plugins: [vuexLocal.plugin],
 });

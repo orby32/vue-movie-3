@@ -1,54 +1,67 @@
 <template>
-<div class="tab">
-    <input type="radio" :id="label" name="category" @click="onChangeCategory($event)" :value="label">
+  <div class="tab">
+    <input
+      type="radio"
+      :id="label"
+      name="category"
+      @click="onChangeCategory($event)"
+      :value="label"
+      v-model="checked"
+    />
     <label :for="label">
-        {{label | formattedText}}
+      {{ label | formattedText }}
     </label>
-</div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: 'tab-button',
-    props: {
-        label: {
-            type: String,
-            required: true
-        }
+  name: "tab-button",
+  props: {
+    label: {
+      type: String,
+      required: true,
     },
-        methods: {
-        onChangeCategory(e) {
-            // change the state
-            this.$store.commit('CHANGE_FETCHED_CATEGORY', e.target.id);
-            // call to fetch actions with new category
-            this.$store.dispatch('fetchData');
-        }
-    }
-}
+  },
+  data() {
+    return {
+      checked: "top_rated",
+    };
+  },
+  methods: {
+    onChangeCategory(e) {
+      this.checked = e.target.id;
+      // change the state
+      this.$store.commit("CHANGE_FETCHED_CATEGORY", e.target.id);
+      // call to fetch actions with new category
+      this.$store.dispatch("fetchData");
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 .tab {
-    text-transform: uppercase;
-    border-bottom: 1px solid #fff;
-    margin-right: 10px;
+  text-transform: uppercase;
+  border-bottom: 1px solid #fff;
+  margin-right: 10px;
 
-    label {
-        cursor: pointer;
-        
-        &:hover {
-            opacity: .8;
-            }
+  label {
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
     }
+  }
 
-    input {
-        display: none;
-    }
+  input {
+    display: none;
+  }
 
-input:checked + label {
-  border-bottom: 1px solid goldenrod;
-  z-index: 2;
-}
+  input:checked + label {
+    border-bottom: 1px solid goldenrod;
+    z-index: 2;
+  }
 }
 </style>
 
